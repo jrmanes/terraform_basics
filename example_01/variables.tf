@@ -7,5 +7,5 @@ variable "image_name" {
 variable "image_version" {
     description = "Version for the image that we will use"
     type = string
-    default = "21.10"
+    default = "21.04"
 }
