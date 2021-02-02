@@ -9,7 +9,7 @@ terraform {
 provider "docker" {}
 
 resource "docker_image" "image-ubuntu" {
-    name = "ubuntu:latest"
+    name = "${var.image_name}:${var.image_version}"
 } 
 
 resource "docker_container" "ubuntu" {
