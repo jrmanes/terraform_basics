@@ -23,4 +23,4 @@ resource "docker_container" "ubuntu" {
             container_path = volumes.value["container_path"]
         }
     }
-} 
+}
