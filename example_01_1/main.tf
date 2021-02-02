@@ -15,11 +15,12 @@ resource "docker_image" "image-ubuntu" {
 resource "docker_container" "ubuntu" {
     name  = "ubuntu_container"
     image = docker_image.image-ubuntu.latest
-    
+    command = "${var.command}"
+
     dynamic "volumes" {
         for_each = var.volumes
         content {
-            volume_name      = volumes.value["volume_name"]
+            volume_name      = volumes.value["volume_name"] != "" ? volumes.value["volume_name"] : "default_name"
             host_path        = volumes.value["host_path"]
             container_path   = volumes.value["container_path"]
         }

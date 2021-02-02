@@ -9,6 +9,11 @@ variable "image_version" {
     type = string
     default = "21.04"
 }
+variable "command" {
+    description = "Set the command for the container"
+    type = list(string)
+    default = ["bash", "-c","sleep 600"]
+}
 
 variable "volumes" {
     description = "All the volumes that we are going to mount inside container"
@@ -23,6 +28,12 @@ variable "volumes" {
             volume_name      = "teach"
             host_path        = "/home/ubuntu/environment/teach"
             container_path   = "/teach/"
+        },
+        {
+            volume_name      = ""
+            host_path        = "/home/ubuntu/environment/teach"
+            container_path   = "/test/"
         }
     ]
+
 }
