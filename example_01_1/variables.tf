@@ -31,7 +31,7 @@ variable "volumes" {
         },
         {
             volume_name      = ""
-            host_path        = "/home/ubuntu/environment/teach"
+            host_path        = "/home/ubuntu/environment/test"
             container_path   = "/test/"
         }
     ]
