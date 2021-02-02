@@ -16,13 +16,13 @@ variable "volumes" {
     default = [
         {
             volume_name      = "terraform_basics"
-            host_path      = "/home/ubuntu/environment/terraform_basics/"
-            container_path = "/cursoTerraform"
+            host_path        = "/home/ubuntu/environment/terraform_basics/"
+            container_path   = "/cursoTerraform"
         },
         {
             volume_name      = "teach"
-            host_path      = "/home/ubuntu/environment/teach"
-            container_path = "/teach/"
+            host_path        = "/home/ubuntu/environment/teach"
+            container_path   = "/teach/"
         }
     ]
 }
