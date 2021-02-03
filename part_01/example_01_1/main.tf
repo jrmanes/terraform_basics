@@ -20,7 +20,7 @@ resource "docker_container" "ubuntu" {
     dynamic "volumes" {
         for_each = var.volumes
         content {
-            volume_name      = volumes.value["volume_name"] != "" ? volumes.value["volume_name"] : "default_name"
+            volume_name      = lookup(volumes.value, "volume_name", null)
             host_path        = volumes.value["host_path"]
             container_path   = volumes.value["container_path"]
         }
