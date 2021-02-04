@@ -47,5 +47,9 @@ This module is created with the pourpose to create docker containers.
 |image_version|Version for the image that we will use|NO|
 |container_ports|Ports needed for the container|YES|
 
+
+## [PART 4](https://github.com/jrmanes/terraform_basics/tree/main/part_04_ec2)
+AWS EC2 instance
+
 ---
 Jose Ramón Mañes
