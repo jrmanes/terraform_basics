@@ -1,4 +1,4 @@
-terraform {
+https://github.com/antonbabenkoterraform {
     required_providers {
         docker = {
             source = "kreuzwerker/docker"
