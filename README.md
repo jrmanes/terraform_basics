@@ -49,7 +49,11 @@ This module is created with the pourpose to create docker containers.
 
 
 ## [PART 4](https://github.com/jrmanes/terraform_basics/tree/main/part_04_ec2)
-AWS EC2 instance
+AWS EC2 basic instance and module
+
+## [PART 5](https://github.com/jrmanes/terraform_basics/tree/main/part_05_aws)
+AWS EC2 instance, security_groups and ssh keys
+
 
 ---
 Jose Ramón Mañes
