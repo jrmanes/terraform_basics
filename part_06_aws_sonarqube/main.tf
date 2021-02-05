@@ -21,36 +21,26 @@ resource "aws_key_pair" "devops" {
   public_key = tls_private_key.devops.public_key_openssh
 }
 
-/*
+
 resource "aws_vpc" "devops_vpc" {
-    cidr_blocks = "172.16.10.0/24"
+    cidr_block = "172.16.10.0/24"
 }
 
 resource "aws_subnet" "devops_subnet" {
-    cidr_blocks = "172.16.10.0/24"
+    vpc_id            = aws_vpc.devops_vpc.id
+    cidr_block        = "172.16.10.0/24"
 }
-*/
+
 
 resource "aws_security_group" "sg_devops_sonar_psql" {
     name = "Allow access to instance Sonar PSQL"
-    ingress {
-        from_port   = 22
-        to_port     = 22
-        protocol    = "tcp"
-        cidr_blocks = ["0.0.0.0/0"]
-    }
+    vpc_id            = aws_vpc.devops_vpc.id
+    
     ingress {
         from_port   = 5432
         to_port     = 5432
         protocol    = "tcp"
-        cidr_blocks = ["0.0.0.0/0"]
-    }
-    egress {
-        from_port   = 0
-        to_port     = 0
-        protocol    = "-1"
-        //cidr_blocks = ["${aws_instance.ec2_sonar_psql.}/16"]
-        cidr_blocks = ["0.0.0.0/0"]
+        cidr_blocks = [ aws_vpc.devops_vpc.cidr_block ]
     }
     tags = {
       Name = "allow-access-from-internet-sonar-psql-jrmanes"
@@ -59,6 +49,8 @@ resource "aws_security_group" "sg_devops_sonar_psql" {
 
 resource "aws_security_group" "sg_devops_sonar" {
     name = "Allow access to instance Sonar"
+    vpc_id            = aws_vpc.devops_vpc.id
+    
     ingress {
         from_port   = 22
         to_port     = 22
@@ -85,8 +77,13 @@ resource "aws_security_group" "sg_devops_sonar" {
 resource "aws_instance" "ec2_sonar_psql" {
     ami = "ami-0aef57767f5404a3c"
     instance_type = "t2.micro"
-    security_groups = [aws_security_group.sg_devops_sonar.name]
     key_name = aws_key_pair.devops.key_name
+    
+    subnet_id   = aws_subnet.devops_subnet.id
+    security_groups = [
+        aws_security_group.sg_devops_sonar_psql.name,
+        aws_security_group.sg_devops_sonar.name
+    ]
     
     provisioner "remote-exec" {
         inline = [
@@ -111,8 +108,13 @@ resource "aws_instance" "ec2_sonar_psql" {
 resource "aws_instance" "ec2_sonar" {
     ami = "ami-0aef57767f5404a3c"
     instance_type = "t2.micro"
-    security_groups = [aws_security_group.sg_devops_sonar.name]
     key_name = aws_key_pair.devops.key_name
+    
+    subnet_id   = aws_subnet.devops_subnet.id
+    security_groups = [
+        aws_security_group.sg_devops_sonar_psql.name,
+        aws_security_group.sg_devops_sonar.name
+    ]
     
     provisioner "remote-exec" {
         inline = [
