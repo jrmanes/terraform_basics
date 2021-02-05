@@ -30,6 +30,18 @@ resource "aws_security_group" "sg_devops" {
         protocol    = "tcp"
         cidr_blocks = ["0.0.0.0/0"]
     }
+    ingress {
+        from_port   = 80
+        to_port     = 80
+        protocol    = "tcp"
+        cidr_blocks = ["0.0.0.0/0"]
+    }
+    ingress {
+        from_port   = 443
+        to_port     = 443
+        protocol    = "tcp"
+        cidr_blocks = ["0.0.0.0/0"]
+    }
     egress {
         from_port   = 0
         to_port     = 0
@@ -50,7 +62,9 @@ resource "aws_instance" "ec2" {
     provisioner "remote-exec" {
         inline = [
                 "sudo apt update",
-                "sudo apt install -y vim net-tools wget curl htop docker docker-compose"
+                "sudo apt install -y vim net-tools wget curl htop docker docker-compose",
+                "docker run -p 8080:80 -d nginx:latest",
+                "docker ps"
         ]
         connection {
             host        = aws_instance.ec2.public_ip
