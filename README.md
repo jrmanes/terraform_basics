@@ -306,6 +306,12 @@ AWS EC2 instance, security_groups and ssh keys
 AWS EC2 instance, security_groups and ssh keys
 SonarQube with PSQL in two instances
 
+--- 
+
+## TODO
+  - [ ] Add GCP
+    - [ ] Instances
+    - [ ] VPC/Networking
 
 ---
 Jose Ramón Mañes
