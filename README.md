@@ -312,6 +312,7 @@ SonarQube with PSQL in two instances
   - [ ] Add GCP
     - [ ] Instances
     - [ ] VPC/Networking
+    - [ ] Modules
 
 ---
 Jose Ramón Mañes
